@@ -69,7 +69,6 @@
         justify-content: center;
         align-items: center;
         transition: 0.3s;
-        position: relative;
     }
 
     .card:hover {
@@ -88,7 +87,6 @@
         text-shadow: 0 0 10px #00eaff;
     }
 
-    /* Responsive */
     @media (max-width: 768px) {
         .card {
             width: 80%;
@@ -118,20 +116,27 @@
     </div>
 </div>
 
+<!-- 🔥 FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
 <script>
-    function updateCoordinates() {
-        let lat = (Math.random() * 180 - 90).toFixed(5);
-        let lon = (Math.random() * 360 - 180).toFixed(5);
+const firebaseConfig = {
+  apiKey: "const firebaseConfig = { apiKey: "AIzaSyAA5pcZv8A7HEsHK44NRIlIjIf1F_tv1JM", authDomain: "satellite-tracker-7d9cd.firebaseapp.com", databaseURL: "https://satellite-tracker-7d9cd-default-rtdb.firebaseio.com", projectId: "satellite-tracker-7d9cd", storageBucket: "satellite-tracker-7d9cd.firebasestorage.app", messagingSenderId: "834009161784", appId: "1:834009161784:web:aa310fc7bc4a5c6eaa86cd", measurementId: "G-3E0VT2ZMFV" };",
+  databaseURL: "https://satellite-tracker-7d9cd-default-rtdb.firebaseio.com/"
+};
 
-        document.getElementById("lat").textContent = lat + "°";
-        document.getElementById("lon").textContent = lon + "°";
-    }
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
-    // Initial call
-    updateCoordinates();
+// 🔴 LIVE DATA LISTENER
+db.ref("satellite/lat").on("value", snap => {
+  document.getElementById("lat").textContent = snap.val() + "°";
+});
 
-    // Update every 3 seconds
-    setInterval(updateCoordinates, 3000);
+db.ref("satellite/lon").on("value", snap => {
+  document.getElementById("lon").textContent = snap.val() + "°";
+});
 </script>
 
 </body>
