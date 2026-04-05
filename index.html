@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Satellite Tracker</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Orbitron', sans-serif;
+    }
+
+    body {
+        height: 100vh;
+        background: radial-gradient(circle at top, #0b1a2a, #000814);
+        overflow: hidden;
+        color: #00eaff;
+    }
+
+    /* ⭐ Background Stars */
+    body::before {
+        content: "";
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        background: url('https://www.transparenttextures.com/patterns/stardust.png');
+        animation: moveStars 60s linear infinite;
+        opacity: 0.3;
+    }
+
+    @keyframes moveStars {
+        from { transform: translate(0,0); }
+        to { transform: translate(-500px, -500px); }
+    }
+
+    h1 {
+        text-align: center;
+        margin-top: 30px;
+        font-size: 2.5rem;
+        text-shadow: 0 0 15px #00eaff;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80%;
+        gap: 30px;
+        flex-wrap: wrap;
+        padding: 20px;
+    }
+
+    .card {
+        width: 250px;
+        height: 150px;
+        border-radius: 20px;
+        backdrop-filter: blur(15px);
+        background: rgba(0, 255, 255, 0.05);
+        border: 1px solid rgba(0,255,255,0.3);
+        box-shadow: 0 0 20px rgba(0,255,255,0.2);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: 0.3s;
+        position: relative;
+    }
+
+    .card:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 0 40px rgba(0,255,255,0.6);
+    }
+
+    .card h2 {
+        font-size: 1rem;
+        margin-bottom: 10px;
+        opacity: 0.7;
+    }
+
+    .value {
+        font-size: 1.5rem;
+        text-shadow: 0 0 10px #00eaff;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .card {
+            width: 80%;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<h1>🚀 Satellite Tracker</h1>
+
+<div class="container">
+    <div class="card">
+        <h2>Latitude</h2>
+        <div class="value" id="lat">--</div>
+    </div>
+
+    <div class="card">
+        <h2>Longitude</h2>
+        <div class="value" id="lon">--</div>
+    </div>
+
+    <div class="card">
+        <h2>Status</h2>
+        <div class="value">TRACKING 🚀</div>
+    </div>
+</div>
+
+<script>
+    function updateCoordinates() {
+        let lat = (Math.random() * 180 - 90).toFixed(5);
+        let lon = (Math.random() * 360 - 180).toFixed(5);
+
+        document.getElementById("lat").textContent = lat + "°";
+        document.getElementById("lon").textContent = lon + "°";
+    }
+
+    // Initial call
+    updateCoordinates();
+
+    // Update every 3 seconds
+    setInterval(updateCoordinates, 3000);
+</script>
+
+</body>
+</html>
